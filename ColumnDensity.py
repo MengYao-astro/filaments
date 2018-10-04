@@ -8,6 +8,7 @@ Created on Sun Sep 23 15:31:04 2018
 
 import matplotlib.pyplot as plt
 import numpy as np
+from astropy.io import fits
 #gaussian
 #def gaussian(x,mu,sig):
 #    return (1./(np.sqrt(2.*np.pi)*sig))*np.exp(-(x-mu)*(x-mu)/2.*(sig*sig))
@@ -16,10 +17,11 @@ import numpy as np
 #plt.plot(gaussian(np.linspace(-3,3,120),mu,sig))
 #plt.show()
 
-#Filament
+#Filament begining
 def coldsty(r,Ap,rho,Rflat,p):
     return Ap*(rho*Rflat)*1./np.power(1.+(r/Rflat)*(r/Rflat),(p-1.)/2.)
-
+'''
+#plot profile with vary parameters
 for Ap in np.pi/4, np.pi/2, np.pi:
  rho=1
  Rflat=10
@@ -55,6 +57,13 @@ for p in 2,3,4:
 plt.subplots_adjust(wspace =0.5, hspace =0.5)
 plt.savefig('ColumnDensity')
 plt.show()
-#n=coldsty(np.linspace(-3,3,120),Ap,rho,Rflat,p)
-#hdu=fits.PrimaryHDU(n)
-#hdul=fits.HDUList([hdu])
+'''
+#write to fits
+Ap=np.pi/2
+rho=1
+Rflat=10
+p=2
+n=coldsty(np.linspace(-3,3,120),Ap,rho,Rflat,p)
+hdu=fits.PrimaryHDU(n)
+hdul=fits.HDUList([hdu])
+hdul.writeto('1Ddensity.fits')
