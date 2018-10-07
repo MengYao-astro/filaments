@@ -58,12 +58,18 @@ plt.subplots_adjust(wspace =0.5, hspace =0.5)
 plt.savefig('ColumnDensity')
 plt.show()
 '''
-#write to fits
+#fits data
 Ap=np.pi/2
 rho=1
 Rflat=10
 p=2
-n=coldsty(np.linspace(-3,3,120),Ap,rho,Rflat,p)
+r=np.linspace(-50,50,100,)
+n=coldsty(r,Ap,rho,Rflat,p)
+plt.plot(r,n)
+plt.show()
+'''
+#write to fits
 hdu=fits.PrimaryHDU(n)
 hdul=fits.HDUList([hdu])
 hdul.writeto('1Ddensity.fits')
+'''
