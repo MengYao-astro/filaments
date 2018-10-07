@@ -60,18 +60,20 @@ plt.subplots_adjust(wspace =0.5, hspace =0.5)
 plt.savefig('ColumnDensity')
 plt.show()
 '''
+#create a filament
 #fits data
 Ap=np.pi/2
 rho=1
 Rflat=10
 p=2
-r=np.linspace(-50,50,100,)
-n=coldsty(r,Ap,rho,Rflat,p)
-plt.plot(r,n)
+r=np.arange(-50,51,1)
+n=np.zeros((101,101))
+for i in range(101):
+    n[i,:]=coldsty(r,Ap,rho,Rflat,p)
+plt.plot(r,n[0,:])
 plt.show()
-'''
+
 #write to fits
 hdu=fits.PrimaryHDU(n)
 hdul=fits.HDUList([hdu])
-hdul.writeto('1Ddensity.fits')
-'''
+hdul.writeto('2Ddensity.fits')

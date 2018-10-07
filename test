@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct  7 19:00:43 2018
+
+@author: meng
+"""
+
+
+from astropy.io import fits
+fits_image_filename = fits.util.get_testdata_filepath('test0.fits')
+hdul = fits.open(fits_image_filename)
+hdul[0].header['DATE']
