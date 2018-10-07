@@ -9,15 +9,17 @@ Created on Sun Sep 23 15:31:04 2018
 import matplotlib.pyplot as plt
 import numpy as np
 from astropy.io import fits
-#gaussian
-#def gaussian(x,mu,sig):
-#    return (1./(np.sqrt(2.*np.pi)*sig))*np.exp(-(x-mu)*(x-mu)/2.*(sig*sig))
-#mu=0
-#sig=2
-#plt.plot(gaussian(np.linspace(-3,3,120),mu,sig))
-#plt.show()
+'''
+#gaussian function
+def gaussian(x,mu,sig):
+    return (1./(np.sqrt(2.*np.pi)*sig))*np.exp(-(x-mu)*(x-mu)/2.*(sig*sig))
+mu=0
+sig=2
+plt.plot(gaussian(np.linspace(-3,3,120),mu,sig))
+plt.show()
+'''
 
-#Filament begining
+#Filament function
 def coldsty(r,Ap,rho,Rflat,p):
     return Ap*(rho*Rflat)*1./np.power(1.+(r/Rflat)*(r/Rflat),(p-1.)/2.)
 '''
