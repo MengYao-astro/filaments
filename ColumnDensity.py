@@ -22,44 +22,6 @@ plt.show()
 #Filament function
 def coldsty(r,Ap,rho,Rflat,p):
     return Ap*(rho*Rflat)*1./np.power(1.+(r/Rflat)*(r/Rflat),(p-1.)/2.)
-'''
-#plot profile with vary parameters
-for Ap in np.pi/4, np.pi/2, np.pi:
- rho=1
- Rflat=10
- p=4
- plt.subplot(2,2,1)
- plt.plot(coldsty(np.linspace(-50,50,100),Ap,rho,Rflat,p))
- plt.title('dif Ap')
- plt.legend(['pi/4','pi/2','pi'],loc='best')
-for rho in 1,2,3:
- Ap=np.pi/2
- Rflat=10
- p=4
- plt.subplot(2,2,2)
- plt.plot(coldsty(np.linspace(-50,50,100),Ap,rho,Rflat,p))
- plt.title('dif rho')
- plt.legend(['1','2','3'],loc='best')
-for Rflat in 10,20,30:
- Ap=np.pi/2
- rho=1
- p=4
- plt.subplot(2,2,3)
- plt.plot(coldsty(np.linspace(-50,50,100),Ap,rho,Rflat,p))
- plt.title('dif Rflat')
- plt.legend(['10','20','30'],loc='best')
-for p in 2,3,4:
- Ap=np.pi/2
- rho=1
- Rflat=10
- plt.subplot(2,2,4)
- plt.plot(coldsty(np.linspace(-50,50,100),Ap,rho,Rflat,p))
- plt.title('dif p')
- plt.legend(['2','3','4'],loc='best')
-plt.subplots_adjust(wspace =0.5, hspace =0.5)
-plt.savefig('ColumnDensity')
-plt.show()
-'''
 #create a filament
 #fits data
 #r range
@@ -77,10 +39,12 @@ for Ap in np.pi/4., np.pi/2., np.pi:
  plt.plot(r,ApFLMTs[j,0,:])    #plot with r and each column desity
  plt.title('diff Ap')
  plt.legend(['pi/4','pi/2','pi'],loc='best')
+ '''
  #write to fits
  hdu=fits.PrimaryHDU(ApFLMTs[j,:,:])
  hdul=fits.HDUList([hdu])
  hdul.writeto('diffAp2D%d.fits' %j)
+ '''
 #diff rho
 rhoFLMTs=np.zeros((3,101,101))
 for rho in 1.,2.,3.:
@@ -94,10 +58,12 @@ for rho in 1.,2.,3.:
  plt.plot(r,rhoFLMTs[j,0,:])    #plot with r and each column desity
  plt.title('diff rho')
  plt.legend(['1','2','3'],loc='best')
+ '''
  #write to fits
  hdu=fits.PrimaryHDU(rhoFLMTs[j,:,:])
  hdul=fits.HDUList([hdu])
  hdul.writeto('diffrho2D%d.fits' %j)
+ '''
 #diff Rflat
 RflatFLMTs=np.zeros((3,101,101))
 for Rflat in 10.,20.,30.:
@@ -111,10 +77,12 @@ for Rflat in 10.,20.,30.:
  plt.plot(r,RflatFLMTs[j,0,:])    #plot with r and each column desity
  plt.title('diff Rflat')
  plt.legend(['10','20','30'],loc='best')
+ '''
  #write to fits
  hdu=fits.PrimaryHDU(RflatFLMTs[j,:,:])
  hdul=fits.HDUList([hdu])
  hdul.writeto('diffRflat2D%d.fits' %j)
+ '''
 #diff p
 pFLMTs=np.zeros((3,101,101))
 for p in np.arange(2,5,1):
@@ -128,10 +96,12 @@ for p in np.arange(2,5,1):
  plt.plot(r,pFLMTs[j,0,:])     #plot with r and each column desity
  plt.title('diff p')
  plt.legend(['2','3','4'],loc='best')
+ '''
  #write to fits
  hdu=fits.PrimaryHDU(pFLMTs[j,:,:])
  hdul=fits.HDUList([hdu])
  hdul.writeto('diffp2D%d.fits' %j)
+ '''
 plt.subplots_adjust(wspace =0.5, hspace =0.5)
 plt.savefig('ColumnDensity')
 plt.show()
