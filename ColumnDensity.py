@@ -25,7 +25,7 @@ def coldsty(r,Ap,rho,Rflat,p):
 #create a filament
 #fits data
 #r range
-r=np.arange(-50,51,1)
+r=np.linspace(-50,50,101)
 #diff Ap
 ApFLMTs=np.zeros((3,101,101))
 for Ap in np.pi/4., np.pi/2., np.pi:
