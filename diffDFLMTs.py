@@ -30,6 +30,7 @@ plt.show()
 #write to fits
 
 hdu=fits.PrimaryHDU(tFLMT)
+
 hdul=fits.HDUList([hdu])
 hdul.writeto('FLMTin%dpc.fits' %d)
 
