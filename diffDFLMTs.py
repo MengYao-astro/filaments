@@ -51,15 +51,10 @@ plt.show()
 
 #Flux of the filaments
 def flux(NH2coldsty,Tem,wavelen,opacity,thetaH):
-<<<<<<< HEAD
     return NH2coldsty/(2.2*10.**20)/(np.exp(1.439*(wavelen*Tem/10.)**(-1)-1))/wavelen**3/(opacity/0.01)/(thetaH/10.)
-=======
-    return NH2coldsty/(2.2*10.**20)/(np.exp(1.439*wavelen*Tem)-1)/wavelen/(opacity/0.01)/(thetaH/10.)
->>>>>>> f243978e2c6bd73074ad9eb7c9cb3f5dd5674c9b
     #NH2 in cm-2, Tem in K, wavenlen in mm, opacity in cm2/g, thetaH in arcsec
     #get flux in mJy/beam
 NH2coldsty=diffdcoldsty
-<<<<<<< HEAD
 Tem=10.        # in K
 wavelen=1.     # in mm
 opacity=1.     # in cm2/g
@@ -68,19 +63,8 @@ Fflux=flux(NH2coldsty,Tem,wavelen,opacity,thetaH)
 plt.plot(r,Fflux[0,0,:])
 plt.show()
 
-=======
-Tem=10.
-wavelen=1.
-opacity=1.
-thetaH=3.
-Fflux=flux(NH2coldsty,Tem,wavelen,opacity,thetaH)
->>>>>>> f243978e2c6bd73074ad9eb7c9cb3f5dd5674c9b
 '''
 hdu=fits.PrimaryHDU(Fflux[0,:,:])
 hdul=fits.HDUList([hdu])
 hdul.writeto('no1Fflux.fits')
 '''
-<<<<<<< HEAD
-
-=======
->>>>>>> f243978e2c6bd73074ad9eb7c9cb3f5dd5674c9b
