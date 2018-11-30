@@ -60,11 +60,12 @@ wavelen=1.     # in mm
 opacity=1.     # in cm2/g
 thetaH=3.      # in arcsec
 Fflux=flux(NH2coldsty,Tem,wavelen,opacity,thetaH)
+Fflux=Fflux/1000.                                  # convert unit from mJy to Jy
 plt.plot(r,Fflux[0,0,:])
 plt.show()
 
-'''
+
 hdu=fits.PrimaryHDU(Fflux[0,:,:])
 hdul=fits.HDUList([hdu])
-hdul.writeto('no1Fflux.fits')
-'''
+hdul.writeto('no1flux.fits')
+
