@@ -14,13 +14,13 @@ from astropy.io import fits
 csvdata=np.genfromtxt('FLMTStable.csv',delimiter=';')
 sample=csvdata[11:28,:]
 number=sample[:,0]
-NH2=sample[:,1]*10**21      # unit: cm-2
+NH2c=sample[:,1]*10**21      # unit: cm-2
 p=sample[:,2]
 Rflatpc=sample[:,3]   # unit: pc
 #prepare parameters
-Ap=np.pi/2.
+Ap=np.pi
 Rflat=Rflatpc*3.09*10**18      # unit: cm
-rho=NH2/Ap/Rflat     # unit: cm-3
+rho=NH2c/Ap/Rflat/2.33/(1.6735*10^(-24))     # unit: cm-3
 p=p
 #count
 amount=len(number)
@@ -57,7 +57,7 @@ def flux(NH2coldsty,Tem,wavelen,opacity,thetaH):
 NH2coldsty=diffdcoldsty
 Tem=10.        # in K
 wavelen=1.     # in mm
-opacity=1.     # in cm2/g
+opacity=0.01     # in cm2/g
 thetaH=3.      # in arcsec
 Fflux=flux(NH2coldsty,Tem,wavelen,opacity,thetaH)
 Fflux=Fflux/1000.                                  # convert unit from mJy to Jy
