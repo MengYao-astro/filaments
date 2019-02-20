@@ -68,8 +68,8 @@ def fluxperbeam(vNH2,vT,vlambda,vkv,vOmega_A):
     #get flux in mJy/beam
 #Flux per pixel
 def fluxperpixel(vNH2,vT,vlambda,vkv,vtheta):
-    return 3.9167*10**-25*vNH2/(np.exp(1.439/vlambda/(vT/10.))-1)*vlambda**-3*vkv*vtheta**2
-    #NH2 in cm-2, Tem in K, lambda in mm, kv in cm2/g, theta in arcsec
+    return 1.1*10**-24*vNH2/(np.exp(1.439/vlambda/(vT/10.))-1)*vlambda**-3*vkv*vtheta**2
+    #NH2 in cm-2, Tem in K, lambda in mm, kv in cm2/g, theta in arcsec, theta in arcsec
     #get flux in Jy/beam
 #set parameters
 Tem=10.        # in K
