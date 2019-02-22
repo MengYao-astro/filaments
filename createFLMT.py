@@ -43,12 +43,12 @@ r=np.linspace(-physicalLcm,physicalLcm,datapoints)   # unit: cm
 #calculate Ap
 Ap=np.array([intApco(x) for x in p])
 #calculate rho-center(r=0)
-rhoc=2.33*(1.6737236*10.**-24.)*NH2c/Ap/Rflat     # unit: cm-3
+rhoc=2.8*(1.6737236*10.**-24.)*NH2c/Ap/Rflat     # unit: cm-3
 #create filament in different distance
 #zeros array
 NH2=np.zeros((amount,datapoints))
 for i in range(amount):
- NH2[i,:]=coldsty(r,Ap[i],rhoc[i],Rflat[i],p[i])/(2.33*1.6737236*10.**-24.)
+ NH2[i,:]=coldsty(r,Ap[i],rhoc[i],Rflat[i],p[i])/(2.8*1.6737236*10.**-24.)
  #plt.plot(r,NH2[i,:])
  #write to fits file
  '''
@@ -62,21 +62,22 @@ for i in range(amount):
 #plt.show()
 
 #Flux per beam of the filaments
-def fluxperbeam(vNH2,vT,vlambda,vkv,vOmega_A):
-    return 4.369*10**-23*vNH2/(np.exp(1.439/vlambda/(vT/10.))-1)*vlambda**-3*(vkv/0.01)*vOmega_A
-    #NH2 in cm-2, Tem in K, wavenlen in mm, opacity in cm2/g, thetaH in arcsec
-    #get flux in mJy/beam
+def fluxperbeam(vNH2,vT,vlambda,vkv,vthetaHPBW):
+    return 4.396*10**-24*vNH2/(np.exp(1.439/vlambda/(vT/10.))-1)*vlambda**-3*vkv*vthetaHPBW**2
+    #NH2 in cm-2, Tem in K, wavenlen-lambda in mm, opacity-kv in cm2/g, thetaHPBW in arcsec
+    #get flux in Jy/beam
 #Flux per pixel
-def fluxperpixel(vNH2,vT,vlambda,vkv,vtheta):
-    return 3.9167*10**-25*vNH2/(np.exp(1.439/vlambda/(vT/10.))-1)*vlambda**-3*vkv*vtheta**2
-    #NH2 in cm-2, Tem in K, lambda in mm, kv in cm2/g, theta in arcsec
+def fluxperpixel(vNH2,vT,vlambda,vkv,vthetap):
+    return 4.377*10**-24*vNH2/(np.exp(1.439*vlambda**-1*(vT/10.)**-1)-1)*vlambda**-3*vkv*vthetap**2
+    #NH2 in cm-2, Tem in K, wavelength-lambda in mm, opacity-kv in cm2/g, theta in arcsec
     #get flux in Jy/beam
 #set parameters
 Tem=10.        # in K
 wavelen=1.     # in mm
 opacity=0.01     # in cm2/g
-Fflux=fluxperpixel(NH2,Tem,wavelen,opacity,pixelsize)
-plt.plot(r,Fflux[0,:])
+fluxp=fluxperpixel(NH2,Tem,wavelen,opacity,pixelsize)
+fluxb=fluxperbeam(NH2,Tem,wavelen,opacity,16.795)
+plt.plot(r,fluxb[0,:])
 plt.title('flux density (mJy/beam)')
 plt.show()
 
