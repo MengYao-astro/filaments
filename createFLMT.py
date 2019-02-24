@@ -39,7 +39,7 @@ pixelsize=1.   # unit : arcsec
 physicalLpc=datapoints*pixelsize/206265.*500. # unit : pc
 physicalLcm=physicalLpc*3.0856775814914*10.**18. # unit : cm
 #r range
-r=np.linspace(-physicalLcm,physicalLcm,datapoints)   # unit: cm
+r=np.linspace(-physicalLcm/2.,physicalLcm/2.,datapoints)   # unit: cm
 #calculate Ap
 Ap=np.array([intApco(x) for x in p])
 #calculate rho-center(r=0)
