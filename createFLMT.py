@@ -34,9 +34,11 @@ def coldsty(vr,vAp,vrhoc,vRflat,vp):                #unit: cm-2
 #define pixel size and calculate the physical size of the filaments
 #1'' per pixel and take 1024 pixels
 datapoints=1024
-pixelsize=1.   # unit : arcsec
+pixelsize=0.2   # unit : arcsec
 #set distance to 500pc
-physicalLpc=datapoints*pixelsize/206265.*500. # unit : pc
+distance=500.  # unit : pc
+#calculate the filament's physical size
+physicalLpc=datapoints*pixelsize/206265.*distance # unit : pc
 physicalLcm=physicalLpc*3.0856775814914*10.**18. # unit : cm
 #r range
 r=np.linspace(-physicalLcm/2.,physicalLcm/2.,datapoints)   # unit: cm
@@ -83,8 +85,8 @@ no1flux=np.array([fluxp[0,:]]*datapoints)
 plt.title('flux density (Jy/pixel)')
 plt.show()
 
-
+'''
 hdu=fits.PrimaryHDU(no1flux)
 hdul=fits.HDUList([hdu])
 hdul.writeto('no1flux.fits')
-
+'''
