@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from astropy.io import fits
 from scipy import integrate
-
+#delete old fits file
+os.system('rm -rf no1flux.fits')
 #read FLMTS table of IC5146
 csvdata=np.genfromtxt('FLMTStable.csv',delimiter=';')
 sample=csvdata[11:28,:]
@@ -34,7 +35,7 @@ def coldsty(vr,vAp,vrhoc,vRflat,vp):                #unit: cm-2
 #define pixel size and calculate the physical size of the filaments
 #1'' per pixel and take 1024 pixels
 datapoints=1024
-pixelsize=0.2   # unit : arcsec
+pixelsize=0.3   # unit : arcsec
 #set distance to 500pc
 distance=500.  # unit : pc
 #calculate the filament's physical size
@@ -84,9 +85,8 @@ no1flux=np.array([fluxp[0,:]]*datapoints)
 
 plt.title('flux density (Jy/pixel)')
 plt.show()
+print(fluxp[0,512])
 
-'''
 hdu=fits.PrimaryHDU(no1flux)
 hdul=fits.HDUList([hdu])
 hdul.writeto('no1flux.fits')
-'''
