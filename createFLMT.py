@@ -23,15 +23,21 @@ Rflatpc=sample[:,3]   # unit: pc
 #count samples
 amount=len(number)
 #convert Rflat in cm unit
-Rflat=Rflatpc*3.0856775814914*10.**18.      # unit: cm
+Rflatcm=Rflatpc*3.0856775814914*10.**18.      # unit: cm
 #define Ap coefficienct function
 def intApco(indexp):
     f = lambda x : 1/((x**2+1)**(indexp/2.))
     Apco=integrate.quad(f,-float('inf'),float('inf'))[0]
     return Apco
 #Filament column density function
-def coldsty(vr,vAp,vrhoc,vRflat,vp):                #unit: cm-2
+def sumcoldsty(vr,vAp,vrhoc,vRflat,vp):                #unit: cm-2
     return vAp*(vrhoc*vRflat)/np.power(1.+(vr/vRflat)**2.,(vp-1.)/2.) # r* means pc-cm
+def coldsty(vr,vNH2c,vRflat,vp):
+    return vNH2c/np.power(1.+(vr/vRflat)**2.,(vp-1.)/2.)
+#calculate Ap
+#Ap=np.array([intApco(x) for x in p])
+#calculate rho-center(r=0)
+#rhoc=2.8*(1.6737236*10.**-24.)*NH2c/Ap/Rflat     # unit: cm-3
 #define pixel size and calculate the physical size of the filaments
 #1'' per pixel and take 1024 pixels
 datapoints=1024
@@ -42,16 +48,13 @@ distance=500.  # unit : pc
 physicalLpc=datapoints*pixelsize/206265.*distance # unit : pc
 physicalLcm=physicalLpc*3.0856775814914*10.**18. # unit : cm
 #r range
-r=np.linspace(-physicalLcm/2.,physicalLcm/2.,datapoints)   # unit: cm
-#calculate Ap
-Ap=np.array([intApco(x) for x in p])
-#calculate rho-center(r=0)
-rhoc=2.8*(1.6737236*10.**-24.)*NH2c/Ap/Rflat     # unit: cm-3
+r=np.linspace(-physicalLpc/2.,physicalLpc/2.,datapoints)   # unit: cm
+
 #create filament in different distance
 #zeros array
 NH2=np.zeros((amount,datapoints))
 for i in range(amount):
- NH2[i,:]=coldsty(r,Ap[i],rhoc[i],Rflat[i],p[i])/(2.8*1.6737236*10.**-24.)
+ NH2[i,:]=coldsty(r,NH2c[i],Rflatpc[i],p[i])
  plt.plot(r,NH2[i,:])
  #write to fits file
  '''
@@ -86,7 +89,8 @@ no1flux=np.array([fluxp[0,:]]*datapoints)
 plt.title('flux density (Jy/pixel)')
 plt.show()
 print(fluxp[0,512])
-
+'''
 hdu=fits.PrimaryHDU(no1flux)
 hdul=fits.HDUList([hdu])
 hdul.writeto('no1flux.fits')
+'''
