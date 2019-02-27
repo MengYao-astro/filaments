@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -12,7 +13,7 @@ import numpy as np
 from astropy.io import fits
 from scipy import integrate
 #delete old fits file
-os.system('rm -rf no1flux.fits')
+os.system('rm -rf ../casasim/no4flux.fits')
 #read FLMTS table of IC5146
 csvdata=np.genfromtxt('FLMTStable.csv',delimiter=';')
 sample=csvdata[11:28,:]
@@ -41,14 +42,14 @@ def coldsty(vr,vNH2c,vRflat,vp):
 #define pixel size and calculate the physical size of the filaments
 #1'' per pixel and take 1024 pixels
 datapoints=1024
-pixelsize=0.3   # unit : arcsec
+pixelsize=0.2   # unit : arcsec
 #set distance to 500pc
 distance=500.  # unit : pc
 #calculate the filament's physical size
 physicalLpc=datapoints*pixelsize/206265.*distance # unit : pc
 physicalLcm=physicalLpc*3.0856775814914*10.**18. # unit : cm
 #r range
-r=np.linspace(-physicalLpc/2.,physicalLpc/2.,datapoints)   # unit: cm
+r=np.linspace(-physicalLpc/2.,physicalLpc/2.,datapoints)   # unit: pc
 
 #create filament in different distance
 #zeros array
@@ -78,19 +79,19 @@ def fluxperpixel(vNH2,vT,vlambda,vkv,vthetap):
     #NH2 in cm-2, Tem in K, wavelength-lambda in mm, opacity-kv in cm2/g, theta in arcsec
     #get flux in Jy/beam
 #set parameters
-Tem=10.        # in K
+Tem=11.8        # in K
 wavelen=0.85     # in mm
 opacity=0.01     # in cm2/g
 fluxp=fluxperpixel(NH2,Tem,wavelen,opacity,pixelsize)
-fluxb=fluxperbeam(NH2,Tem,wavelen,opacity,16.795)
-plt.plot(r,fluxp[0,:])
-no1flux=np.array([fluxp[0,:]]*datapoints)
+#fluxb=fluxperbeam(NH2,Tem,wavelen,opacity,16.795)
+plt.plot(r,fluxp[4,:])
+no4flux=np.array([fluxp[4,:]]*datapoints)
 
 plt.title('flux density (Jy/pixel)')
 plt.show()
-print(fluxp[0,512])
-'''
-hdu=fits.PrimaryHDU(no1flux)
+print(fluxp[4,512])
+
+hdu=fits.PrimaryHDU(no4flux)
 hdul=fits.HDUList([hdu])
-hdul.writeto('no1flux.fits')
-'''
+hdul.writeto('../casasim/no4flux.fits')
+
